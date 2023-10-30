@@ -59,6 +59,63 @@ ffuf -r -fc 404 -fs 3861 -t 1000  -w /usr/share/wordlists/seclists/Discovery/Web
 dirbuster -u http://valentine.htb/ -t 100 -l /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -r dirout.ext -e php,txt,html 
 ```
 
+## SSH
+
+Entoncontramos varias rutas.Entontramos una key tanto para encode y decode que al parecer solo era un base64 nada complejo
+
+
+![image](https://github.com/gecr07/Valentine-HTB/assets/63270579/f88dc834-cf44-40eb-9ce9-c1007091fe6d)
+
+
+![image](https://github.com/gecr07/Valentine-HTB/assets/63270579/8f0e59df-d144-447e-a89a-d0e8c41f847c)
+
+En donde la key luce asi
+
+![image](https://github.com/gecr07/Valentine-HTB/assets/63270579/f073ba14-0dd0-4ca6-88f5-7009a9b095e1)
+
+Me di cuenta que esto parece hex decimal vamos a combertirlo en ascii.
+
+```
+cat key | sed 's/ \+//g' | xxd -r -p > id_rsa
+
+```
+
+Pero ahora nos damos cuenta que la id_rsa esta protegida con un password
+
+
+![image](https://github.com/gecr07/Valentine-HTB/assets/63270579/14ae66cb-447a-4992-a30f-bbf4cd4c8427)
+
+
+
+## Terminal Shortcuts
+
+```
+
+Terminal 
+
+CTRL + A #Ir al incio
+CTRL + E # Ir al final 
+ALT + B # Una palabra antes (Before)
+ALT + F # Para adelante
+
+Man 
+
+CTRl + Shift #Buscar
+n # para buscar adelante
+shift + n ( osea N) # para buscar hacia atras
+g Ir a la primera linea del manual man
+
+TMUX
+
+CTRL + B Shift + ! # Para un panel convertirlo en una ventana nueva.
+CTRL + B Shift + [ # Para copiar se hace
+Copy mode CTRL + Space # Selecciona 
+CTRL + W # Eso es copia
+CTRL + B + SHIFT + ] # pega lo copiado
+```
+
+
+
 
 
 
@@ -67,12 +124,14 @@ dirbuster -u http://valentine.htb/ -t 100 -l /usr/share/wordlists/dirbuster/dire
 5![image](https://github.com/gecr07/Valentine-HTB/assets/63270579/39f7244d-1973-49c3-b9a6-a47c286cfc89)
 
 
-Nos damos cuenta que es un servidor viejo vulnerable a heartbleed entonces pues probamos el exploit y nos trae una cadena en base64 que es el paass de la key id_rsa
+Nos damos cuenta que es un servidor viejo vulnerable a heartbleed entonces pues probamos el exploit y nos trae una cadena en base64 que es el paass de la key id_rsa. Los permisos de una id_rsa son los 600 que solo propietario pueda leer y escribir.
 
 ```
 python2 32764.py 10.129.71.228 -p 443 | grep -v "00"
 
 ```
+
+Y obtenemos una password "heartbleedbelievethehype" Como adivinamos el usuario tenemos varios caminos 1 enumerar usuario con el explorit pero esto tarda mucho que sea nuestra ultima alternativa 2 de lo que vamos encontrando en la pagina pues ir poniendo palabras por ejemplo hype que dice hype_key podria ser una pista asi como la imagen es una pista podriamos subirla a google para ver que onda.
 
 
 
