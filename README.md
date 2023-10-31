@@ -55,6 +55,7 @@ ffuf -r -fc 404 -fs 3861 -t 1000  -w /usr/share/wordlists/seclists/Discovery/Web
 
 ## Dirbuster
 
+
 ```
 dirbuster -u http://valentine.htb/ -t 100 -l /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -r dirout.ext -e php,txt,html 
 ```
@@ -134,8 +135,47 @@ python2 32764.py 10.129.71.228 -p 443 | grep -v "00"
 Y obtenemos una password "heartbleedbelievethehype" Como adivinamos el usuario tenemos varios caminos 1 enumerar usuario con el explorit pero esto tarda mucho que sea nuestra ultima alternativa 2 de lo que vamos encontrando en la pagina pues ir poniendo palabras por ejemplo hype que dice hype_key podria ser una pista asi como la imagen es una pista podriamos subirla a google para ver que onda.
 
 
+## RCE
+
+![image](https://github.com/gecr07/Valentine-HTB/assets/63270579/478c7967-2a8a-4dde-8152-1de77332c7a1)
 
 
+Con  la id_rsa ( que esta protegida con pass)
+
+
+```
+## PASS id_rsa
+
+heartbleedbelievethehype
+```
+
+No me dejaba conectarme porque esta deprecated. Como no queria limpiar la consola hicimos un export TERM=xterm. 
+
+> Most likely your SSH client is using ssh-rsa (RSA+SHA1) and your server has that signature algorithm disabled. SHA-1 is vulnerable and OpenSSH disabled that signature algorithm in version 8.8 (2021-09-26).
+
+Lo venci asi:
+
+> https://stackoverflow.com/questions/73795935/sign-and-send-pubkey-no-mutual-signature-supported
+
+![image](https://github.com/gecr07/Valentine-HTB/assets/63270579/0a5ac691-f393-49d2-819b-d5a10d447595)
+
+Efectivamente es Ubuntu 12 
+
+## Privlege escalation
+
+Se deberia de checar el Kernel de linux a ver si no hay exploit(si hay), los cron jobs,los archivos con SUID, exploits para sudo, los puertos expuestos localmente y los procesos que estan ejecutandose.
+
+![image](https://github.com/gecr07/Valentine-HTB/assets/63270579/2ec995c6-1431-42c5-84b8-e30380419397)
+
+Existia una sesion de tmux que ejecutaba root
+
+```
+tmux -S /.devs/dev_sess
+
+
+```
+
+Ojo esto solo funciona para versiones de tmux muy antiguaas
 
 
 
