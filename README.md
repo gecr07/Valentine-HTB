@@ -177,11 +177,18 @@ tmux -S /.devs/dev_sess
 
 Ojo esto solo funciona para versiones de tmux muy antiguaas
 
+![image](https://github.com/gecr07/Valentine-HTB/assets/63270579/37e1b6c2-ee1a-4e44-a78f-4a904dbc3926)
 
 
 
+### Dirty Cow
+
+Es un exploit del kernel de linux. En el searchsploit dice que el Kernel de Linux es vulnerabel en un rando inclusivo de 2.6.22 a kernel menor a 3.9. En el mismo exploit te dice como compilarlo.
+
+![image](https://github.com/gecr07/Valentine-HTB/assets/63270579/813fc15c-a938-44c4-8b97-e882aeb4ecf8)
 
 
+![image](https://github.com/gecr07/Valentine-HTB/assets/63270579/142ca143-68c2-458e-b75d-02191a4c9d4a)
 
 
 
